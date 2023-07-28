@@ -2,15 +2,25 @@ import { Route, Routes } from "react-router-dom"
 import { Navbar } from "./components/Navbar"
 import { Home } from "./pages/Home"
 import { MainProvider } from "./context/Contexts"
-// ADD Onclick to every movie to show up on the main 
+import { AuthContextProvider } from "./context/AuthContext"
+import { Login } from "./pages/Login"
+import { SignUp } from "./pages/SignUp"
+import { Account } from "./pages/Account"
+import { ProtectedRoute } from "./components/ProtectedRoute"
+
 function App() {
   return (
-    <MainProvider>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
-    </ MainProvider >
+    <AuthContextProvider>
+      <MainProvider>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={ <Login/>} />
+          <Route path="/signup" element={ <SignUp/>} />
+          <Route path="/account" element={ <ProtectedRoute> <Account/> </ProtectedRoute> } />
+        </Routes>
+      </ MainProvider >
+    </AuthContextProvider>  
   )
 }
 
